@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="ilgpu" Version="1.5.1" />
   </ItemGroup>
 
 </Project>
