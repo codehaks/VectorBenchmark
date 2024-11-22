@@ -10,7 +10,7 @@ public class VectorAdditionBenchmark
     [GlobalSetup]
     public void Setup()
     {
-        int size = 1000000;
+        int size = 10_000_000;
         A = new float[size];
         B = new float[size];
         C = new float[size];
@@ -36,10 +36,22 @@ public class VectorAdditionBenchmark
         SIMDAddition.Add(A, B, C);
     }
 
-    // ILGPU method: GPU-based addition using ILGPU framework
+    // Initialize ILGPU context once before benchmark runs
+    static VectorAdditionBenchmark()
+    {
+        ILGPUAddition.Initialize();
+    }
+
     [Benchmark]
     public void ILGPUAdd()
     {
         ILGPUAddition.Add(A, B, C);
+    }
+
+    // Cleanup ILGPU resources after benchmarking
+    [GlobalCleanup]
+    public void Cleanup()
+    {
+        ILGPUAddition.Cleanup();
     }
 }
